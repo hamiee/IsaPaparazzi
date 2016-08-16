@@ -1,0 +1,16 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="print_attitude">
+  <doc>
+    <description>This module will print the attitudethe UAV periodically with a frequency of 1Hz</description>
+  </doc>
+  <header>
+    <file name="print_attitude.h"/>
+  </header>
+  <init fun="print_start()"/>
+  <periodic fun="print_attitude_per()" freq="1"/>
+  <makefile>
+    <file name="print_attitude.c"/>
+  </makefile>
+</module>
+

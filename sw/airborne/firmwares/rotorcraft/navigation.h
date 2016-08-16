@@ -28,7 +28,7 @@
 #ifndef NAVIGATION_H
 #define NAVIGATION_H
 
-#include "std.h"
+#include "std.h"   /* [Remark]: the quotations are used instead of <> because this file has been created by the user and is stored in the standard library */
 #include "math/pprz_geodetic_int.h"
 
 #include "subsystems/navigation/waypoints.h"

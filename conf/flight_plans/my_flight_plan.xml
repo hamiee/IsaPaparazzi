@@ -1,0 +1,20 @@
+<!DOCTYPE flight_plan SYSTEM "flight_plan.dtd">
+
+<flight_plan name="my_flight_plan" lat0="43.237535" lon0="1.327747" qfu="225" max_dist_from_home = "300" ground_alt="390" security_height="25" alt="490">  
+     <waypoints>
+	<waypoint name="HOME" x="0" y="0"/>
+	<waypoint name="STDBY" x="103.9" y="-96.3"/>
+	<waypoint name="PROFILE" x="123.9" y="-116.7"/>
+	<waypoint name="1" x="8.9" y="-149.8"/>
+	<waypoint name="2" x="241.5" y="-62.1"/>
+	<waypoint name="MOB" x="137.0" y="-11.6"/>
+	<waypoint name="S1" x="-100.8" y="-293.0"/>
+	<waypoint name="S2" x="307.3" y="-65.4"/>
+	<waypoint name="CLIMB" x="-102.3" y="-129.0"/>
+     </waypoints>
+     <blocks>
+      <block name="printint">
+	<!--call fun="begin_counter()"/-->
+      </block>
+     </blocks>
+</flight_plan>

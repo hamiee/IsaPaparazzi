@@ -1,0 +1,16 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="print_velocity">
+  <doc>
+    <description>This module will print the velocity of the drone by using the stateGetSpeedNed_i(void) function which will return a pointer to a structure containing the velocity components</description>
+  </doc>
+  <header>
+    <file name="print_velocity.h"/>
+  </header>
+  <init fun="begin()"/>
+  <periodic fun="print_velocity_per()" freq="1"/>
+  <makefile>
+    <file name="print_velocity.c"/>
+  </makefile>
+</module>
+

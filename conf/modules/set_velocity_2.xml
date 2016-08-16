@@ -1,0 +1,17 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="set_velocity_2">
+  <doc>
+    <description>This module will set the velocity of the drone to some constant value</description>
+  </doc>
+  <header>
+    <file name="set_velocity_2.h"/>
+  </header>
+  <!--init fun="begin_counter()"/-->
+  <periodic fun="counter()" freq="1"/>
+  <periodic fun="set_velocity()" freq="4"/>
+  <makefile>
+    <file name="set_velocity_2.c"/>
+  </makefile>
+</module>
+

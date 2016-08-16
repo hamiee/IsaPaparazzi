@@ -1,0 +1,16 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="my_first_module">
+  <doc>
+    <description>this module will allow for printing as well as periodic printing of some statements</description>
+  </doc>
+  <header>
+    <file name="my_first_module.h"/>
+  </header>
+  <init fun="print_once_init()"/>
+  <periodic fun="print_per()" freq="0.5"/>
+  <makefile>
+    <file name="my_first_module.c"/>
+  </makefile>
+</module>
+

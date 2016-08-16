@@ -1,0 +1,15 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="calculate_radius">
+  <doc>
+    <description>This module computes the radius of the arc connecting the location of the drone and a nearby waypoint</description>
+  </doc>
+  <header>
+    <file name="calculate_radius.h"/>
+  </header>
+  <init fun="calc_radius()"/>
+  <makefile>
+    <file name="calculate_radius.c"/>
+  </makefile>
+</module>
+

@@ -1,0 +1,15 @@
+<!DOCTYPE module SYSTEM "module.dtd">
+
+<module name="move_in_arc">
+  <doc>
+    <description>This module will determine the velocity system inputs needed to be provided to the system</description>
+  </doc>
+  <header>
+    <file name="move_in_arc.h"/>
+  </header>
+  <periodic fun="give_vx_vy" freq="100"/>
+  <makefile>
+    <file name="move_in_arc.c"/>
+  </makefile>
+</module>
+
