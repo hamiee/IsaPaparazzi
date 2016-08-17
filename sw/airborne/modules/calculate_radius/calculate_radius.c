@@ -27,7 +27,7 @@
 #include "pprz_algebra.h"
 float * xw;
 float * yw;
-struct arc_struct *fly_arc_parameters(float xw,float yw, float target_time) {
+struct arc_struct* fly_arc_parameters(float xw,float yw, float target_time) {
 	float xw2;
 	float yw2;
 	float sum_squares;

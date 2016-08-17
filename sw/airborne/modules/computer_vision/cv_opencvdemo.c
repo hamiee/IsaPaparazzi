@@ -26,8 +26,14 @@
 #include "modules/computer_vision/cv.h"
 #include "modules/computer_vision/cv_opencvdemo.h"
 #include "modules/computer_vision/opencv_example.h"
+#include "firmwares/rotorcraft/guidance/guidance_h.h"
 
+#include "modules/computer_vision/lib/vision/image.h"
 
+#include "std.h"
+
+#include <stdlib.h>
+#include <string.h>
 // Function
 struct image_t* opencv_func(struct image_t* img);
 struct image_t* opencv_func(struct image_t* img)
@@ -38,14 +44,24 @@ struct image_t* opencv_func(struct image_t* img)
     // Call OpenCV (C++ from paparazzi C function)
     opencv_example((char*) img->buf, img->w, img->h);
   }
+  float yaw = stateGetNedToBodyEulers_f()->psi;
+  float viewingAngle=0.45;//radians
+  float diff = loc_y-(img->h/2);
+  double pixelsPerDegree = viewingAngle/img->h;
+  yaw += pixelsPerDegree * diff;
 
-// opencv_example(NULL, 10,10);
+  guidance_h_set_guided_heading(yaw);
 
-  return NULL;
+  guidance_h_set_guided_body_vel(0.5,0.0);
+
+//  guidance_h_set_guided_body_vel(0.15,0.0);
+
+  return img;
 }
 
 void opencvdemo_init(void)
 {
   cv_add_to_device(&OPENCVDEMO_CAMERA, opencv_func);
+  opencv_init_rects();
 }
 

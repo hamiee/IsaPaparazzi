@@ -25,13 +25,16 @@
 
 #ifndef OPENCV_EXAMPLE_H
 #define OPENCV_EXAMPLE_H
-
+#include "state.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+extern float stddev_colors;
+extern int mean_u;
+extern int mean_v;
+extern int loc_y;
 int opencv_example(char *img, int width, int height);
-
+void opencv_init_rects(void);
 #ifdef __cplusplus
 }
 #endif

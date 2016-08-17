@@ -69,7 +69,11 @@ void coloryuv_opencv_to_yuv422(Mat image, char *img, int width, int height)
 void colorrgb_opencv_to_yuv422(Mat image, char *img, int width, int height)
 {
   // Convert to YUV color space
+<<<<<<< HEAD
   cvtColor(image, image, COLOR_BGR2YUV);
+=======
+  cvtColor(image, image, COLOR_RGB2YUV);
+>>>>>>> rolandz/race2
   // then call the to color function
   coloryuv_opencv_to_yuv422(image, img, width, height);
 }
