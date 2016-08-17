@@ -35,10 +35,10 @@
 #include <math.h>
 #include "firmwares/rotorcraft/stabilization/stabilization_attitude.h"
 //#include "firmwares/rotorcraft/stabilization/stabilization_attitude_euler_float.h"
-
+#include "modules/calculate_radius.h"
 
 float psi0;//
-bool primitive_mask[4] = {0,0,0,0};
+bool primitive_mask[5] = {0,0,0,0,0};
 uint8_t previous_mode;
 uint8_t current_mode;
 
@@ -186,12 +186,43 @@ void change_heading_hover(float derta_psi,float planned_time){
 //    }
     else if(time_primitive > planned_time)      //(time_primitive>planned_time)
     {
-        clear_bit_ls(primitive_mask,2);
-        set_bit_ls(primitive_mask,1);
+        clear_bit_ls(primitive_mask,3);
+        set_bit_ls(primitive_mask,4);
         clear_bit_ls(clock_mask,2);
     }
 }
 
+
+void fly_arc(float xw,float yw){ //fly arc to a certain waypoint
+    if (!bit_is_set_ls(clock_mask,2))
+    {
+        set_bit_ls(clock_mask,2);
+        counter_primitive = 0;
+        guidance_h_mode_changed(GUIDANCE_H_MODE_MODULE);
+        guidance_v_mode_changed(GUIDANCE_V_MODE_GUIDED);
+        radius = calc_radius(xw,yw);
+        guidance_loop_set_velocity(0,0);
+        guidance_v_set_guided_z(stateGetPositionNed_f()->z);
+        guidance_loop_set_heading(psi0+derta_psi);
+    }
+//    else if(time_primitive < planned_time)
+//    {
+//        if (fabs(time_primitive-planned_time/4)<0.2)
+//            guidance_loop_set_heading(psi0+derta_psi/4);
+//        else if (fabs(time_primitive-planned_time/2)<0.2)
+//            guidance_loop_set_heading(psi0+derta_psi/2);
+//        else if (fabs(time_primitive-planned_time/4*3)<0.2)
+//            guidance_loop_set_heading(psi0+derta_psi/4*3);
+//        else if (fabs(time_primitive-planned_time)<0.2)
+//            guidance_loop_set_heading(psi0+derta_psi);
+//    }
+    else if(time_primitive > planned_time)      //(time_primitive>planned_time)
+    {
+        clear_bit_ls(primitive_mask,4);
+        set_bit_ls(primitive_mask,1);
+        clear_bit_ls(clock_mask,2);
+    }
+}
 
 void flight_plan_run() {        // 10HZ
     current_mode = autopilot_mode;
@@ -219,6 +250,10 @@ void flight_plan_run() {        // 10HZ
     {
         change_heading_hover(90/180*3.14,5);
     }
+    if (autopilot_mode != AP_MODE_ATTITUDE_DIRECT &&  bit_is_set_ls(primitive_mask,4))
+        {
+            fly_arc(xw,yw,5); //[note]: add the xw and yw
+        }
 }
 
 void set_bit_ls(bool *mask,int bit){

@@ -27,6 +27,7 @@
 #define FLIGHT_PLAN_IN_GUIDED_MODE_H
 #include "flight_plan_clock.h"
 
+
  extern void flight_plan_in_guided_mode_init(void);
  extern void flight_plan_run(void);
  extern void display_information(void);

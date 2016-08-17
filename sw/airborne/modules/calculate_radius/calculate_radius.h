@@ -29,6 +29,14 @@
 extern void calc_radius();
 extern float * xw;
 extern float * yw;
+extern struct arc_struct {
+	float needed_heading;
+	float needed_time;
+	float radius
+}; // arc_struct is the struct tage :
+
+//this struct will contain the change in heading needed
+extern struct arc_struct fly_arc_parameters;
 
 #endif
 
