@@ -25,7 +25,7 @@
 
 #include "modules/calculate_radius/calculate_radius.h"
 #include "pprz_algebra.h"
-#include <math>
+
 
 float * xw;
 float * yw;
