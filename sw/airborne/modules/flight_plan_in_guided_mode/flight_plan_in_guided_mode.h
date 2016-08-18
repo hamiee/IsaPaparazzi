@@ -27,6 +27,7 @@
 #define FLIGHT_PLAN_IN_GUIDED_MODE_H
 #include "flight_plan_clock.h"
 
+
  extern void flight_plan_in_guided_mode_init(void);
  extern void flight_plan_run(void);
  extern void display_information(void);
@@ -34,5 +35,25 @@
  extern void clear_bit_ls(bool *mask,int bit);
  extern bool bit_is_set_ls(bool *mask,int bit);
 
+#endif
+
+#ifndef CALCULATE_RADIUS_H
+#define CALCULATE_RADIUS_H
+#define M_PI 3.14159265358979323846
+
+//extern void calc_radius(void);
+//extern float xw;
+//extern float yw;
+struct arc_struct {
+	float needed_heading;
+	float needed_time;
+	float radius;
+	float arc_length;
+	float needed_delta_psi;
+};
+
+extern void fly_arc_parameters(float xw,float yw, float target_time);
+extern struct arc_struct fly_arc_vals;
+extern void fly_arc(float xw,float yw, float planned_time);
 #endif
 
