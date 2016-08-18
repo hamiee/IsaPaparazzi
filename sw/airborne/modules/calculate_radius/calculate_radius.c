@@ -25,6 +25,8 @@
 
 #include "modules/calculate_radius/calculate_radius.h"
 #include "pprz_algebra.h"
+#include <math>
+
 float * xw;
 float * yw;
 struct arc_struct* fly_arc_parameters(float xw,float yw, float target_time) {
@@ -45,7 +47,7 @@ struct arc_struct* fly_arc_parameters(float xw,float yw, float target_time) {
 	radius_value = sum_squares/(2*&xw);
 
 	// calculating the arc angle
-	arc_angle = 180.0 - atan2f(yw,xw);
+	arc_angle = M_PI - atan2f(yw,xw);
 
 	//calculating the arc length
 	arc_length = radius_value*arc_angle;
@@ -53,8 +55,10 @@ struct arc_struct* fly_arc_parameters(float xw,float yw, float target_time) {
 	//calculating the angular velocity needed
 	angular_velocity_needed = arc_length/target_time;
 
+
+
 	//calculating the needed change in heading
-	needed_delta_psi = angular_velocity_needed * delta_t * 0.5;
+	needed_delta_psi = angular_velocity_needed * (time_target*0.02) * 0.5;
 
 
 
@@ -62,7 +66,7 @@ struct arc_struct* fly_arc_parameters(float xw,float yw, float target_time) {
 	fly_arc_parameters.needed_time = target_time;
 	fly_arc_parameters.radius = radius_value;
 	fly_arc_parameters.arclength = arc_length;
-	fly_arc_parameters.needed_delta_psi = ;
+	fly_arc_parameters.needed_delta_psi = needed_delta_psi;
 	// we have to know if we want to turn left or right. If the xw is positive, we turn right
 	// and if the xw is negative we turn left.
 	//Thus, if the xw is positive, the heading or the psi will have to be positive.

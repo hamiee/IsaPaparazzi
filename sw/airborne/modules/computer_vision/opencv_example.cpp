@@ -379,16 +379,12 @@ int opencv_example(char *img, int width, int height) {
 	Mat probImage(height,width,CV_8UC1); // prob projected
 	hsv_set_color_intensity(probImage,hsvImage);
 
-<<<<<<< HEAD
-  // Convert back to YUV422, and put it in place of the original image
-//  grayscale_opencv_to_yuv422(image, img, width, height);
-  colorrgb_opencv_to_yuv422(image, img, width, height);
-=======
+
 	//	yuv422_set_color_intensity(probImage,img);
 	guidoMethod(probImage);
 //	uint32_t hor_sum_image[width];
 //	uint32_t vert_sum_image[height];
->>>>>>> rolandz/race2
+
 
 	//grayscale_hor_sum( probImage,hor_sum_image,vert_sum_image);
 	grayscale_opencv_to_yuv422(probImage, img, width, height);

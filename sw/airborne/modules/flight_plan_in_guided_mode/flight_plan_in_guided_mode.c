@@ -155,7 +155,7 @@ void go_straight(float planned_time, float velocity){
     else if(time_primitive > planned_time)
     {
         clear_bit_ls(primitive_mask,2);
-        set_bit_ls(primitive_mask,1);
+        set_bit_ls(primitive_mask,4);
         clear_bit_ls(clock_mask,2);
         printf("FUCK!!!!!FUCK!!!");
     }
@@ -193,17 +193,28 @@ void change_heading_hover(float derta_psi,float planned_time){
 }
 
 
-void fly_arc(float xw,float yw){ //fly arc to a certain waypoint
+void fly_arc(float xw,float yw, float time){ //fly arc to a certain waypoint
     if (!bit_is_set_ls(clock_mask,2))
     {
         set_bit_ls(clock_mask,2);
         counter_primitive = 0;
         guidance_h_mode_changed(GUIDANCE_H_MODE_MODULE);
         guidance_v_mode_changed(GUIDANCE_V_MODE_GUIDED);
-        radius = calc_radius(xw,yw);
-        guidance_loop_set_velocity(0,0);
-        guidance_v_set_guided_z(stateGetPositionNed_f()->z);
-        guidance_loop_set_heading(psi0+derta_psi);
+        float radius = calc_radius(xw,yw);
+        float delta_psi = fly_arc_parameters(xw,yw,time)->needed_delta_psi;
+
+        while (time_primitive< time) {//check that the time is less than the allocated time
+			float vx_ned = stateGetSpeedNed_f()->x;
+			float vy_ned = stateGetSpeedNed_f()->y;
+			float psi = stateGetNedToBodyEulers_f()->psi;
+
+			float vx_body = cos(psi)*vx_ned -sin(psi)*vy_ned;
+			float vy_body = sin(psi)*vx_ned +cos(psi)*vy_ned;
+
+			guidance_loop_set_velocity(vx_body,vy_body);
+			guidance_v_set_guided_z(stateGetPositionNed_f()->z);
+			guidance_loop_set_heading(psi+delta_psi);
+        }
     }
 //    else if(time_primitive < planned_time)
 //    {
@@ -252,7 +263,7 @@ void flight_plan_run() {        // 10HZ
     }
     if (autopilot_mode != AP_MODE_ATTITUDE_DIRECT &&  bit_is_set_ls(primitive_mask,4))
         {
-            fly_arc(xw,yw,5); //[note]: add the xw and yw
+            fly_arc(xw,yw,3); //[note]: add the xw and yw
         }
 }
 
