@@ -1,4 +1,4 @@
-/*
+  /*
  * Copyright (C) 2008-2009 Antoine Drouin <poinix@gmail.com>
  *
  * This file is part of paparazzi.
@@ -20,7 +20,7 @@
  */
 
 /** @file firmwares/rotorcraft/guidance/guidance_h.h
- *  Horizontal guidance for rotorcrafts.
+ *  Horizontal guidance for  rotorcrafts.
  *
  */
 
@@ -38,7 +38,7 @@
  * Default is TRUE, define to FALSE to always disable it.
  */
 #ifndef GUIDANCE_H_USE_REF
-#define GUIDANCE_H_USE_REF TRUE
+#define GUIDANCE_H_USE_REF TRUE        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  todo: try false
 #endif
 
 /** Use horizontal guidance speed reference.
@@ -71,7 +71,7 @@ struct HorizontalGuidanceSetpoint {
   struct Int32Vect2 speed;  ///< only used in HOVER mode if GUIDANCE_H_USE_SPEED_REF or in GUIDED mode
   int32_t heading;          ///< with #INT32_ANGLE_FRAC
   int32_t heading_rate;     ///< with #INT32_RATE_FRAC
-  uint8_t mask;             ///< bit 5: vx & vy, bit 6: vz, bit 7: vyaw
+  uint8_t mask;             ///< bit 5: vx & vy, bit 6: vz, bit 7: vyaw // ???? what is this used for?
 };
 
 struct HorizontalGuidanceReference {
@@ -95,7 +95,6 @@ struct HorizontalGuidance {
   bool approx_force_by_thrust;
   /* gains */
   struct HorizontalGuidanceGains gains;
-
   struct HorizontalGuidanceSetpoint sp; ///< setpoints
   struct HorizontalGuidanceReference ref; ///< reference calculated from setpoints
 
@@ -104,13 +103,13 @@ struct HorizontalGuidance {
 
 extern struct HorizontalGuidance guidance_h;
 
-extern int32_t transition_percentage;
+extern int32_t transition_percentage;                ////  ??????????????
 extern int32_t transition_theta_offset;
 
 extern void guidance_h_init(void);
 extern void guidance_h_mode_changed(uint8_t new_mode);
-extern void guidance_h_read_rc(bool in_flight);
-extern void guidance_h_run(bool in_flight);
+extern void guidance_h_read_rc(bool in_flight);   // what is this function used for?
+extern void guidance_h_run(bool in_flight);   // important
 
 extern void guidance_h_set_igain(uint32_t igain);
 
